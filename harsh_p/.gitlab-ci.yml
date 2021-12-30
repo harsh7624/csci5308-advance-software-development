@@ -1,0 +1,27 @@
+before_script:
+  - pwd
+stages:
+  - build
+  - test
+build:
+    stage: build
+    tags:
+     - ugrad
+    script:
+     - echo "Build stage A2"
+     - cd A2
+     - mvn compile
+test:
+    stage: test
+    tags:
+     - ugrad
+    script:
+     - echo "Test stage A2"
+     - cd A2
+     - mvn test
+    artifacts:
+      when: always
+      reports:
+        junit:
+          - $CI_PROJECT_DIR/A2/target/surefire-reports/TEST-*.xml
+          - $CI_PROJECT_DIR/A2/target/failsafe-reports/TEST-*.xml
